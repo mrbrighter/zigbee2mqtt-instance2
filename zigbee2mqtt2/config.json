@@ -1,96 +1,42 @@
 {
   "name": "Zigbee2MQTT Zweite Instanz",
-  "version": "2.7.0-1",
+  "version": "2.6.3",
   "slug": "zigbee2mqtt2",
-  "description": "Zweite Instanz von Zigbee2MQTT für separate Netzwerke",
-  "breaking_versions": [
-    "2.0.0-1"
-  ],
-  "uart": true,
-  "udev": true,
+  "description": "Zweite Instanz von Zigbee2MQTT",
   "url": "https://github.com/mrbrighter/zigbee2mqtt-instance2",
   "startup": "application",
-  "services": [
-    "mqtt:need"
-  ],
-  "hassio_api": true,
-  "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "armv7",
-    "i386"
-  ],
   "boot": "auto",
-  "init": false,
+  "arch": ["aarch64","amd64","armhf","armv7","i386"],
   "ingress": true,
-  "timeout": 30,
+  "ingress_port": 8099,
   "panel_icon": "mdi:zigbee",
+  "services": ["mqtt:need"],
+  "hassio_api": true,
+  "uart": true,
+  "udev": true,
+  "timeout": 30,
   "map": [
-    {
-      "type": "share",
-      "read_only": false
-    },
-    {
-      "type": "homeassistant_config",
-      "read_only": false,
-      "path": "/config"
-    },
-    {
-      "type": "addon_config",
-      "read_only": false,
-      "path": "/addon_config"
-    }
+    {"type":"share","read_only":false},
+    {"type":"homeassistant_config","read_only":false,"path":"/config"},
+    {"type":"addon_config","read_only":false,"path":"/addon_config"}
   ],
-  "ports": {
-    "8485/tcp": 8485,
-    "8099/tcp": null
-  },
+  "ports": { "8485/tcp": 8485, "8099/tcp": null },
   "ports_description": {
-    "8485/tcp": "Socat tcp-listen port",
-    "8099/tcp": "Frontend tcp-listen port"
+    "8485/tcp":"Socat tcp-listen port",
+    "8099/tcp":"Frontend tcp-listen port"
   },
   "options": {
     "data_path": "/config/zigbee2mqtt2",
-    "socat": {
-      "enabled": false,
-      "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",
-      "slave": "tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5",
-      "options": "-d -d",
-      "log": false
-    },
-    "mqtt": {},
-    "serial": {}
+    "socat": { "enabled": false, "master": "pty,raw,echo=0,link=/tmp/ttyZ2M2,mode=777", "slave": "tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5", "options": "-d -d", "log": false },
+    "mqtt": {}, "serial": {}, "advanced": {}, "watchdog": "", "force_onboarding": false
   },
   "schema": {
-    "data_path": "str",
-    "socat": {
-      "enabled": "bool?",
-      "master": "str?",
-      "slave": "str?",
-      "options": "str?",
-      "log": "bool?"
-    },
-    "mqtt": {
-      "server": "str?",
-      "ca": "str?",
-      "key": "str?",
-      "cert": "str?",
-      "user": "str?",
-      "password": "str?",
-      "base_topic": "str?"
-    },
-    "serial": {
-      "port": "str?",
-      "adapter": "match(zstack|deconz|zigate|ezsp|ember|zboss)?",
-      "baudrate": "int?",
-      "rtscts": "bool?"
-    },
-    "advanced": {
-      "network_key": "list(str)?"
-    },
-    "watchdog": "str?",
-    "force_onboarding": "bool?"
+    "data_path":"str",
+    "socat":{ "enabled":"bool?","master":"str?","slave":"str?","options":"str?","log":"bool?" },
+    "mqtt":{ "server":"str?","ca":"str?","key":"str?","cert":"str?","user":"str?","password":"str?","base_topic":"str?" },
+    "serial":{ "port":"str?","adapter":"match(zstack|deconz|zigate|ezsp|ember|zboss)?","baudrate":"int?","rtscts":"bool?" },
+    "advanced":{ "network_key":"list(int)?" },
+    "watchdog":"str?","force_onboarding":"bool?"
   },
-  "image": "ghcr.io/zigbee2mqtt/zigbee2mqtt-{arch}"
+  "image": "ghcr.io/koenkk/zigbee2mqtt"
 }
