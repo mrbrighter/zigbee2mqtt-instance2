@@ -1,7 +1,7 @@
 {
-  "name": "Zigbee2MQTT2",
+  "name": "zigbee2mqtt2",
   "version": "2.6.3-1",
-  "slug": "Zigbee2MQTT2",
+  "slug": "zigbee2mqtt2",
   "description": "Use your ZigBee devices without the vendor's bridge or gateway",
   "breaking_versions": [
     "2.0.0-1"
@@ -51,7 +51,7 @@
     "8099/tcp": "Frontend tcp-listen port"
   },
   "options": {
-    "data_path": "/config/Zigbee2MQTT2",
+    "data_path": "/config/zigbee2mqtt2",
     "socat": {
       "enabled": false,
       "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",
