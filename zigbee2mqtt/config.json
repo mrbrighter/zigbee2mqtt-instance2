@@ -1,14 +1,14 @@
 {
-  "name": "Zigbee2MQTT",
+  "name": "Zigbee2MQTT Zweite Instanz",
   "version": "2.6.3-1",
-  "slug": "zigbee2mqtt",
-  "description": "Use your ZigBee devices without the vendor's bridge or gateway",
+  "slug": "zigbee2mqtt2",  <-- KORREKTUR: Eindeutiger Slug für die zweite Instanz
+  "description": "Zweite Instanz von Zigbee2MQTT für separate Netzwerke",
   "breaking_versions": [
     "2.0.0-1"
   ],
   "uart": true,
   "udev": true,
-  "url": "https://github.com/zigbee2mqtt/hassio-zigbee2mqtt/tree/master/zigbee2mqtt",
+  "url": "https://github.com/mrbrighter/zigbee2mqtt-instance2",  <-- Optional: URL an Ihr Repo anpassen
   "startup": "application",
   "services": [
     "mqtt:need"
@@ -51,7 +51,7 @@
     "8099/tcp": "Frontend tcp-listen port"
   },
   "options": {
-    "data_path": "/config/zigbee2mqtt",
+    "data_path": "/config/zigbee2mqtt2", <-- KORREKTUR: Datenpfad anpassen
     "socat": {
       "enabled": false,
       "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",
@@ -85,6 +85,9 @@
       "adapter": "match(zstack|deconz|zigate|ezsp|ember|zboss)?",
       "baudrate": "int?",
       "rtscts": "bool?"
+    },
+    "advanced": {
+      "network_key": "list(str)?"  <-- KORREKTUR: 'advanced' zum Schema hinzugefügt
     },
     "watchdog": "str?",
     "force_onboarding": "bool?"
