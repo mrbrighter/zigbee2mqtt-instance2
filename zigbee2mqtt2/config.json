@@ -1,49 +1,26 @@
 {
   "name": "zigbee2mqtt2",
-  "version": "2.6.3-1",
+  "version": "2.6.3-2",
   "slug": "zigbee2mqtt2",
   "description": "Use your ZigBee devices without the vendor's bridge or gateway",
-  "breaking_versions": [
-    "2.0.0-1"
-  ],
-  "uart": true,
-  "udev": true,
-    "url": "https://github.com/mrbrighter/zigbee2mqtt-instance2",
+  "url": "https://github.com/mrbrighter/zigbee2mqtt-instance2",
   "startup": "application",
-  "services": [
-    "mqtt:need"
-  ],
-  "hassio_api": true,
-  "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "armv7",
-    "i386"
-  ],
   "boot": "auto",
-  "init": false,
   "ingress": true,
   "timeout": 30,
   "panel_icon": "mdi:zigbee",
+  "uart": true,
+  "udev": true,
+  "hassio_api": true,
+  "services": ["mqtt:need"],
+  "arch": ["aarch64","amd64","armhf","armv7","i386"],
   "map": [
-    {
-      "type": "share",
-      "read_only": false
-    },
-    {
-      "type": "homeassistant_config",
-      "read_only": false,
-      "path": "/config"
-    },
-    {
-      "type": "addon_config",
-      "read_only": false,
-      "path": "/addon_config"
-    }
+    { "type": "share", "read_only": false },
+    { "type": "homeassistant_config", "read_only": false, "path": "/config" },
+    { "type": "addon_config", "read_only": false, "path": "/addon_config" }
   ],
   "ports": {
-    "8485/tcp": 8485,
+    "8485/tcp": null,
     "8099/tcp": null
   },
   "ports_description": {
@@ -54,13 +31,16 @@
     "data_path": "/config/zigbee2mqtt2",
     "socat": {
       "enabled": false,
-      "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",
+      "master": "pty,raw,echo=0,link=/tmp/ttyZ2M2,mode=777",
       "slave": "tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5",
       "options": "-d -d",
       "log": false
     },
     "mqtt": {},
-    "serial": {}
+    "serial": {},
+    "advanced": {},
+    "watchdog": "",
+    "force_onboarding": false
   },
   "schema": {
     "data_path": "str",
@@ -86,8 +66,10 @@
       "baudrate": "int?",
       "rtscts": "bool?"
     },
+    "advanced": {
+      "network_key": "list(int)?"
+    },
     "watchdog": "str?",
     "force_onboarding": "bool?"
-  },
-  "image": "ghcr.io/zigbee2mqtt/zigbee2mqtt-{arch}"
+  }
 }
