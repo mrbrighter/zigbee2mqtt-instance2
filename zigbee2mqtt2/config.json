@@ -1,12 +1,12 @@
 {
   "name": "Zigbee2MQTT Zweite Instanz",
-  "version": "2.6.3-1",
+  "version": "2.6.3-2",
   "slug": "zigbee2mqtt2",
-  "description": "Zweite Instanz von Zigbee2MQTT für separate Netzwerke",
+  "description": "Zweite Instanz von Zigbee2MQTT für ein separates Netzwerk",
   "url": "https://github.com/mrbrighter/zigbee2mqtt-instance2",
   "startup": "application",
   "boot": "auto",
-  "arch": ["aarch64","amd64","armhf","armv7","i386"],
+  "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
   "ingress": true,
   "ingress_port": 8099,
   "panel_icon": "mdi:zigbee",
@@ -16,11 +16,14 @@
   "udev": true,
   "timeout": 30,
   "map": [
-    {"type": "share", "read_only": false},
-    {"type": "homeassistant_config", "read_only": false, "path": "/config"},
-    {"type": "addon_config", "read_only": false, "path": "/addon_config"}
+    { "type": "share", "read_only": false },
+    { "type": "homeassistant_config", "read_only": false, "path": "/config" },
+    { "type": "addon_config", "read_only": false, "path": "/addon_config" }
   ],
-  "ports": { "8485/tcp": 8485, "8099/tcp": null },
+  "ports": {
+    "8485/tcp": 8485,
+    "8099/tcp": null
+  },
   "ports_description": {
     "8485/tcp": "Socat tcp-listen port",
     "8099/tcp": "Frontend tcp-listen port"
@@ -29,13 +32,16 @@
     "data_path": "/config/zigbee2mqtt2",
     "socat": {
       "enabled": false,
-      "master": "pty,raw,echo=0,link=/tmp/ttyZ2M,mode=777",
+      "master": "pty,raw,echo=0,link=/tmp/ttyZ2M2,mode=777",
       "slave": "tcp-listen:8485,keepalive,nodelay,reuseaddr,keepidle=1,keepintvl=1,keepcnt=5",
       "options": "-d -d",
       "log": false
     },
     "mqtt": {},
-    "serial": {}
+    "serial": {},
+    "advanced": {},
+    "watchdog": "",
+    "force_onboarding": false
   },
   "schema": {
     "data_path": "str",
@@ -61,8 +67,8 @@
       "baudrate": "int?",
       "rtscts": "bool?"
     },
-    "advanced?": {
-      "network_key": "list(str)?"
+    "advanced": {
+      "network_key": "list(int)?"
     },
     "watchdog": "str?",
     "force_onboarding": "bool?"
